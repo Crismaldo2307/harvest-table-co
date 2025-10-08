@@ -8,7 +8,7 @@ Vercel and prepared to integrate with n8n and Google Sheets for lead management.
 
 - Elegant single-page layout with hero, services, quote request, and contact sections.
 - Floating AI Sales Agent demo with chat experience ready to connect to `/api/agent`.
-- Quote form that posts to `/api/lead` and forwards submissions to an n8n webhook.
+- Quote form that posts to `/api/lead` and forwards submissions to the bundled Make.com webhook.
 - Tailwind CSS design system using a white, gold, and olive palette.
 - Framer Motion animations for smooth, premium interactions.
 
@@ -32,7 +32,6 @@ cp .env.local.example .env.local
 
 Fill in the values:
 
-- `N8N_WEBHOOK_URL`: (Optional) The webhook URL generated in n8n that writes submissions to Google Sheets. By default the app sends submissions to `https://hook.eu2.make.com/mknqauio2hb8gnpy6qk9vo7etkqpavmz` so version 1 works out of the box.
 - `OPENAI_API_KEY`: API key for the AI model that will power the virtual sales agent.
 
 ### 3. Run the development server
@@ -52,8 +51,9 @@ npm start
 
 ## 🔌 Connecting n8n + Google Sheets
 
-1. In n8n, create a workflow that starts with a **Webhook** node (POST) and store the provided URL in `N8N_WEBHOOK_URL` (optional if you want to override the default Make.com webhook bundled with the project).
-2. Add a **Google Sheets** node to append the payload to your desired sheet. Map the following fields:
+1. In n8n, create a workflow that starts with a **Webhook** node (POST) and capture the URL provided by n8n.
+2. Update `app/api/lead/route.ts` to post to that URL instead of the bundled Make.com webhook.
+3. Add a **Google Sheets** node to append the payload to your desired sheet. Map the following fields:
    - `name`
    - `email`
    - `eventType`
@@ -61,7 +61,7 @@ npm start
    - `guestCount`
    - `message`
    - `receivedAt`
-3. Deploy the workflow and verify that submitting the on-site form populates new rows in Google Sheets.
+4. Deploy the workflow and verify that submitting the on-site form populates new rows in Google Sheets.
 
 ## 🤖 AI Sales Agent Integration
 
@@ -74,7 +74,7 @@ npm start
 
 1. Push this repository to GitHub.
 2. Import the project into Vercel and select the `harvest-table-co` repo.
-3. Set the environment variables (`N8N_WEBHOOK_URL`, `OPENAI_API_KEY`) in the Vercel dashboard.
+3. Set the environment variables (`OPENAI_API_KEY`) in the Vercel dashboard.
 4. Trigger a deploy—Vercel detects the Next.js project automatically and builds it with the default settings.
 
 ## 📂 Project Structure

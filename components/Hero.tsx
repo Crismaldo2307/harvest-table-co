@@ -27,7 +27,7 @@ export function Hero() {
               href="#quote"
               className="rounded-full bg-brand-green px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg transition-colors hover:bg-brand-gold"
             >
-              Request a Quote
+              Request a Tailored Proposal
             </Link>
             <Link href="#services" className="text-sm font-semibold text-brand-green underline-offset-4 hover:underline">
               Explore services

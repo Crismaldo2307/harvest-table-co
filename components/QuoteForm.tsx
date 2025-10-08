@@ -54,7 +54,7 @@ export function QuoteForm() {
           transition={{ duration: 0.5 }}
           className="flex-1 space-y-6"
         >
-          <p className="text-sm uppercase tracking-[0.3em] text-brand-gold">Request a Quote</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-brand-gold">Request a Tailored Proposal</p>
           <h2 className="text-3xl font-semibold text-brand-dark md:text-4xl">
             Share your vision and we will curate the perfect menu
           </h2>
