@@ -1,0 +1,33 @@
+{
+  "greetings": [
+    "Hi there! I'm the Harvest Table Co. virtual sales agent. How can I support your event planning today?",
+    "Hello! Ready to explore premium catering options together?"
+  ],
+  "faqs": [
+    {
+      "keywords": ["corporate", "meeting", "conference"],
+      "answer": "We support executive meetings, town halls, conferences, product launches, and hybrid events with full-service catering."
+    },
+    {
+      "keywords": ["wedding", "private", "birthday"],
+      "answer": "Our culinary team crafts bespoke menus for weddings, anniversaries, birthdays, and private dinners with on-site chefs."
+    },
+    {
+      "keywords": ["price", "cost", "budget"],
+      "answer": "Pricing starts around $55 per guest for corporate experiences and $80 per guest for weddings. We will confirm after understanding your menu preferences and guest count."
+    },
+    {
+      "keywords": ["response", "time", "available"],
+      "answer": "A dedicated advisor will respond within one business day with availability and next steps."
+    },
+    {
+      "keywords": ["area", "location", "where"],
+      "answer": "We cater across the Greater Chicago Area including downtown, North Shore, and nearby suburbs."
+    },
+    {
+      "keywords": ["contact", "email", "phone"],
+      "answer": "Reach us anytime at concierge@harvesttableco.com or call (312) 555-0180."
+    }
+  ],
+  "quoteTemplate": "To prepare a custom proposal I just need your name, event type, event date, guest count, and any special notes. Once I have that, our human advisor will follow up shortly!"
+}
