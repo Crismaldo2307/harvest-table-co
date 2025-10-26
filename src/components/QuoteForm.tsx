@@ -1,65 +1,72 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
-interface QuoteFormData {
+interface ContactFormData {
   name: string;
+  company: string;
   email: string;
-  eventType: string;
-  eventDate: string;
-  guests: string;
+  topic: string;
   message: string;
 }
 
-const initialData: QuoteFormData = {
+const initialData: ContactFormData = {
   name: "",
+  company: "",
   email: "",
-  eventType: "",
-  eventDate: "",
-  guests: "",
+  topic: "",
   message: ""
 };
 
 export function QuoteForm() {
-  const [formData, setFormData] = useState<QuoteFormData>(initialData);
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [formData, setFormData] = useState<ContactFormData>(initialData);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const handleChange = (field: keyof QuoteFormData) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const topics = useMemo(
+    () => [
+      "Inversión o colaboración",
+      "Análisis personalizado por distrito",
+      "Solicitud de datasets",
+      "Prensa y medios",
+      "Otro"
+    ],
+    []
+  );
+
+  const handleChange = (field: keyof ContactFormData) => (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     setFormData((prev) => ({ ...prev, [field]: event.target.value }));
+    setStatus("idle");
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStatus("loading");
-    setErrorMessage("");
 
-    try {
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        const payload = await response.json().catch(() => ({}));
-        throw new Error(payload?.message ?? "Unable to submit quote request.");
-      }
-
-      setStatus("success");
-      setFormData(initialData);
-    } catch (error) {
-      console.error(error);
-      setErrorMessage(error instanceof Error ? error.message : "Something went wrong.");
+    if (!formData.name || !formData.email || !formData.message) {
       setStatus("error");
+      return;
     }
+
+    const subject = encodeURIComponent(`Contacto Barcelona Rent Pulse - ${formData.topic || "Consulta"}`);
+    const bodyLines = [
+      `Nombre: ${formData.name}`,
+      `Empresa / organización: ${formData.company || "No especificado"}`,
+      `Correo: ${formData.email}`,
+      `Interés: ${formData.topic || "Consulta"}`,
+      "", // blank line
+      formData.message
+    ];
+    const body = encodeURIComponent(bodyLines.join("\n"));
+
+    window.location.href = `mailto:cmaldonadoa@student.eae.es?subject=${subject}&body=${body}`;
+    setStatus("success");
+    setFormData(initialData);
   };
 
   return (
-    <section id="quote" className="bg-white py-20">
+    <section id="contacto" className="bg-white py-20">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2">
         <div className="space-y-6">
           <motion.h2
@@ -68,22 +75,22 @@ export function QuoteForm() {
             viewport={{ once: true, amount: 0.4 }}
             className="text-3xl font-bold text-brand-dark"
           >
-            Request a Tailored Proposal
+            Conversemos con datos en la mesa
           </motion.h2>
           <p className="text-brand-dark/70">
-            Share a few details and our team will respond within one business day with menu ideas, pricing guidance, and a personalized consultation.
+            Si lideras proyectos inmobiliarios, turísticos o comerciales en Barcelona, podemos ayudarte a anticipar zonas de riesgo, diseñar escenarios y trazar políticas de mitigación del impacto sobre la vivienda.
           </p>
           <div className="rounded-3xl border border-brand-green/20 bg-brand-green/5 p-6" id="contact">
-            <h3 className="text-lg font-semibold text-brand-green">Direct Contact</h3>
+            <h3 className="text-lg font-semibold text-brand-green">Contacto directo</h3>
             <p className="mt-2 text-sm text-brand-dark/70">
-              Prefer a conversation? Reach us at
-              <a href="mailto:hello@harvesttableco.com" className="ml-1 font-medium text-brand-green">
-                hello@harvesttableco.com
+              Escríbenos a
+              <a href="mailto:cmaldonadoa@student.eae.es" className="ml-1 font-medium text-brand-green">
+                cmaldonadoa@student.eae.es
               </a>
-              or call <span className="font-medium">+1 (555) 123-4567</span>.
+              . Respondemos en menos de 48 horas laborables.
             </p>
             <p className="mt-4 text-sm text-brand-dark/70">
-              Service area: Downtown core and metropolitan surroundings within a 90-minute radius.
+              También podemos agendar una sesión exploratoria para revisar tu cartera de activos o tu estrategia de expansión.
             </p>
           </div>
         </div>
@@ -96,7 +103,7 @@ export function QuoteForm() {
         >
           <div>
             <label htmlFor="name" className="text-sm font-medium text-brand-dark">
-              Full Name
+              Nombre completo
             </label>
             <input
               id="name"
@@ -105,96 +112,86 @@ export function QuoteForm() {
               value={formData.name}
               onChange={handleChange("name")}
               className="mt-2 w-full rounded-xl border border-brand-green/20 bg-white px-4 py-2 text-sm focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30"
-              placeholder="Alex Morgan"
+              placeholder="Cristian Maldonado"
               autoComplete="name"
             />
           </div>
           <div>
-            <label htmlFor="email" className="text-sm font-medium text-brand-dark">
-              Email
+            <label htmlFor="company" className="text-sm font-medium text-brand-dark">
+              Empresa u organización
             </label>
             <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              value={formData.email}
-              onChange={handleChange("email")}
+              id="company"
+              name="company"
+              value={formData.company}
+              onChange={handleChange("company")}
               className="mt-2 w-full rounded-xl border border-brand-green/20 bg-white px-4 py-2 text-sm focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30"
-              placeholder="you@company.com"
-              autoComplete="email"
-            />
-          </div>
-          <div>
-            <label htmlFor="eventType" className="text-sm font-medium text-brand-dark">
-              Event Type
-            </label>
-            <input
-              id="eventType"
-              name="eventType"
-              required
-              value={formData.eventType}
-              onChange={handleChange("eventType")}
-              className="mt-2 w-full rounded-xl border border-brand-green/20 bg-white px-4 py-2 text-sm focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30"
-              placeholder="Executive Summit"
+              placeholder="Cristian & Alonso Data"
             />
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label htmlFor="eventDate" className="text-sm font-medium text-brand-dark">
-                Event Date
+              <label htmlFor="email" className="text-sm font-medium text-brand-dark">
+                Correo electrónico
               </label>
               <input
-                id="eventDate"
-                name="eventDate"
-                type="date"
+                id="email"
+                name="email"
+                type="email"
                 required
-                value={formData.eventDate}
-                onChange={handleChange("eventDate")}
+                value={formData.email}
+                onChange={handleChange("email")}
                 className="mt-2 w-full rounded-xl border border-brand-green/20 bg-white px-4 py-2 text-sm focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30"
+                placeholder="persona@empresa.com"
+                autoComplete="email"
               />
             </div>
             <div>
-              <label htmlFor="guests" className="text-sm font-medium text-brand-dark">
-                Number of Guests
+              <label htmlFor="topic" className="text-sm font-medium text-brand-dark">
+                Tema de interés
               </label>
-              <input
-                id="guests"
-                name="guests"
-                required
-                value={formData.guests}
-                onChange={handleChange("guests")}
+              <select
+                id="topic"
+                name="topic"
+                value={formData.topic}
+                onChange={handleChange("topic")}
                 className="mt-2 w-full rounded-xl border border-brand-green/20 bg-white px-4 py-2 text-sm focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30"
-                placeholder="150"
-              />
+              >
+                <option value="">Selecciona una opción</option>
+                {topics.map((topic) => (
+                  <option key={topic} value={topic}>
+                    {topic}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div>
             <label htmlFor="message" className="text-sm font-medium text-brand-dark">
-              Additional Notes
+              Cuéntanos qué necesitas
             </label>
             <textarea
               id="message"
               name="message"
               rows={4}
+              required
               value={formData.message}
               onChange={handleChange("message")}
               className="mt-2 w-full rounded-xl border border-brand-green/20 bg-white px-4 py-2 text-sm focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30"
-              placeholder="Menu preferences, dietary restrictions, service style, etc."
+              placeholder="Describe el reto, la zona de estudio o las preguntas que te gustaría responder."
             />
           </div>
           <button
             type="submit"
-            className="w-full rounded-full bg-brand-green px-4 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow hover:bg-brand-gold disabled:cursor-not-allowed disabled:bg-brand-green/40"
-            disabled={status === "loading"}
+            className="w-full rounded-full bg-brand-green px-4 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow hover:bg-brand-gold"
           >
-            {status === "loading" ? "Submitting..." : "Submit Request"}
+            Enviar información
           </button>
           {status === "success" ? (
-            <p className="text-sm text-brand-green">Thank you! Our team will reach out shortly.</p>
+            <p className="text-sm text-brand-green">Abriremos tu gestor de correo para enviar la información.</p>
           ) : null}
           {status === "error" ? (
-            <p className="text-sm text-red-600">{errorMessage}</p>
+            <p className="text-sm text-red-600">Revisa que hayas completado nombre, correo y mensaje.</p>
           ) : null}
         </motion.form>
       </div>

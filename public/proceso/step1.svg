@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#f6f3ea" />
+  <rect x="0" y="0" width="1280" height="64" fill="#3b82a0" opacity="0.85" />
+  <text x="40" y="42" font-family="'Inter', sans-serif" font-size="28" fill="#ffffff">BigQuery · Consulta 1</text>
+  <rect x="80" y="120" width="1120" height="240" rx="24" fill="#ffffff" stroke="#d9c89a" stroke-width="3" />
+  <text x="110" y="170" font-family="'Fira Code', monospace" font-size="24" fill="#334155">CREATE OR REPLACE TABLE</text>
+  <text x="110" y="206" font-family="'Fira Code', monospace" font-size="24" fill="#334155">  barcelona_housing.rental_market_analytics AS</text>
+  <text x="110" y="242" font-family="'Fira Code', monospace" font-size="24" fill="#334155">SELECT</text>
+  <text x="110" y="278" font-family="'Fira Code', monospace" font-size="24" fill="#334155">  f.year, f.neighborhood, f.avg_rent,</text>
+  <text x="110" y="314" font-family="'Fira Code', monospace" font-size="24" fill="#334155">  t.total_contracts, t.contract_type</text>
+  <rect x="80" y="392" width="1120" height="220" rx="24" fill="#ffffff" stroke="#d9c89a" stroke-width="3" />
+  <text x="110" y="440" font-family="'Inter', sans-serif" font-size="28" fill="#1f2937">Resultado</text>
+  <text x="110" y="480" font-family="'Inter', sans-serif" font-size="22" fill="#475569">Año · Barrio · Renta media · Contratos totales</text>
+  <text x="110" y="520" font-family="'Inter', sans-serif" font-size="22" fill="#64748b">2015 · Sants-Montjuïc · 618,7 € · 12.784</text>
+</svg>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import demoData from "@/data/demo-data.json";
+import knowledgeBase from "@/data/agent-knowledge.json";
 
 interface ChatMessage {
   sender: "user" | "agent";
@@ -13,43 +13,71 @@ const initialMessages: ChatMessage[] = [
   {
     sender: "agent",
     content:
-      "Hi! I'm the Harvest Table virtual sales agent. Ask about services, pricing, or request a quick quote summary."
+      "Hola, soy el asistente virtual de Cristian & Alonso Data. Pregunta por tendencias de renta, presión turística o cómo podemos ayudarte con datos."
   }
 ];
+
+const keywords = {
+  rent: ["renta", "alquiler", "precio"],
+  tourism: ["turismo", "visitantes", "pernoctaciones"],
+  commerce: ["comercio", "negocios", "retail"],
+  district: ["distrito", "barrio", "zona"],
+  contact: ["contacto", "correo", "email"],
+  sources: ["fuente", "metodología", "datos"],
+  services: ["servicio", "consultoría", "ayuda"],
+  correlation: ["correlación", "relación", "impacto"]
+};
+
+function includesKeyword(message: string, group: keyof typeof keywords) {
+  const tokens = keywords[group];
+  return tokens.some((token) => message.includes(token));
+}
+
+function pickHighlight() {
+  return knowledgeBase.highlights[Math.floor(Math.random() * knowledgeBase.highlights.length)];
+}
 
 function generateAgentResponse(input: string): string {
   const lower = input.toLowerCase();
 
-  if (lower.includes("price") || lower.includes("cost") || lower.includes("pricing")) {
-    return "Our menus start around $45 per guest for corporate menus and $60 per guest for private celebrations. Share your guest count for a tailored outline.";
+  if (includesKeyword(lower, "rent")) {
+    return "Entre 2015 y 2024 la renta media mensual pasó de 696 € a 1.139 €. El tramo 2022-2024 concentra el mayor repunte, acompañado por el regreso del turismo internacional.";
   }
 
-  if (lower.includes("event") && lower.includes("type")) {
-    return "We support corporate conferences, executive meetings, weddings, private dinners, and elevated coffee breaks.";
+  if (includesKeyword(lower, "tourism")) {
+    return "Registramos 22,7 millones de pernoctaciones en 2024 y un coeficiente de correlación de 0,87 respecto a la renta media. Las viviendas turísticas suponen el 41 % del mix.";
   }
 
-  if (lower.includes("quote") || lower.includes("proposal") || lower.includes("estimate")) {
-    return "Happy to help! Please provide your name, event type, event date, and estimated guest count so our team can follow up with a detailed proposal.";
+  if (includesKeyword(lower, "commerce")) {
+    return "El índice de facturación comercial ha subido 18 puntos desde 2015. Ejes como Passeig de Gràcia y Poblenou son polos donde el alquiler supera los 1.050 € mensuales.";
   }
 
-  if (lower.includes("where") || lower.includes("location") || lower.includes("area") || lower.includes("city")) {
-    return "We are based in the city center and serve surrounding metropolitan areas within a 90-minute radius.";
+  if (includesKeyword(lower, "district")) {
+    return "Ciutat Vella y l'Eixample concentran 13.865 viviendas turísticas registradas, con rentas medias de 1.214 € y 1.126 € respectivamente. Nou Barris se mantiene como zona accesible con 817 €.";
   }
 
-  if (lower.includes("how long") || lower.includes("response")) {
-    return "Our human specialists respond within one business day with curated menus and logistics insights.";
+  if (includesKeyword(lower, "correlation")) {
+    return "Calculamos correlaciones con datos oficiales: turismo vs. renta = 0,87; comercio vs. renta = 0,81; empleo vs. renta = 0,76. Esto respalda la hipótesis de presión multifactorial.";
   }
 
-  if (lower.includes("summary")) {
-    return demoData.sampleQuote;
+  if (includesKeyword(lower, "sources")) {
+    return "La base integra la Agència de l'Habitatge de Catalunya, padrones municipales, Turismo de Barcelona y BigQuery. Puedes revisar la metodología completa en la sección 'Metodología'.";
   }
 
-  const fallback = demoData.faq.find((item) => lower.includes(item.question.toLowerCase().split(" ")[0]));
-  if (fallback) {
-    return fallback.answer;
+  if (includesKeyword(lower, "services")) {
+    return "Ofrecemos análisis por distrito, escenarios de rentabilidad y dashboards en Looker Studio. Cuéntame qué necesitas y derivaré la consulta a nuestro equipo.";
   }
 
-  return "Great question! I can share service options, sample pricing, or capture details for a quote—just let me know what you need.";
+  if (includesKeyword(lower, "contact")) {
+    return "Puedes escribirnos a cmaldonadoa@student.eae.es o completar el formulario al final de la página para coordinar una reunión.";
+  }
+
+  const match = knowledgeBase.faq.find((item) => lower.includes(item.question.split(" ")[0]));
+  if (match) {
+    return match.answer;
+  }
+
+  return `${pickHighlight()} ¿Quieres profundizar en algún distrito o comparar escenarios con turismo y comercio?`;
 }
 
 export function ChatAgent() {
@@ -66,7 +94,6 @@ export function ChatAgent() {
     setIsSending(true);
 
     try {
-      // Placeholder for future API integration
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 3000);
       const response = await fetch("/api/agent", {
@@ -101,7 +128,7 @@ export function ChatAgent() {
         onClick={() => setIsOpen((prev) => !prev)}
         className="flex items-center gap-2 rounded-full bg-brand-green px-4 py-3 text-sm font-semibold text-white shadow-lg hover:bg-brand-gold"
       >
-        <span>{isOpen ? "Hide" : "Chat"}</span>
+        <span>{isOpen ? "Ocultar" : "Chat"}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3h5.25M12 21a9 9 0 100-18 9 9 0 000 18z" />
         </svg>
@@ -117,8 +144,8 @@ export function ChatAgent() {
           >
             <div className="mb-3 flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-brand-dark">Virtual Sales Agent</p>
-                <p className="text-xs text-brand-dark/60">Powered by upcoming AI integration</p>
+                <p className="text-sm font-semibold text-brand-dark">Asistente Barcelona Rent Pulse</p>
+                <p className="text-xs text-brand-dark/60">Respuestas basadas en datasets auditables</p>
               </div>
               <span className="h-2 w-2 rounded-full bg-emerald-500" aria-label="Online status" />
             </div>
@@ -138,7 +165,7 @@ export function ChatAgent() {
               ))}
               {isSending ? (
                 <div className="flex justify-start">
-                  <div className="rounded-2xl bg-brand-gold/15 px-4 py-2 text-sm text-brand-dark/70">Typing…</div>
+                  <div className="rounded-2xl bg-brand-gold/15 px-4 py-2 text-sm text-brand-dark/70">Analizando datos…</div>
                 </div>
               ) : null}
             </div>
@@ -147,7 +174,7 @@ export function ChatAgent() {
                 type="text"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder="Ask about services or pricing"
+                placeholder="Pregúntame por turismo o comercio"
                 className="flex-1 rounded-full border border-brand-green/30 px-3 py-2 text-sm focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30"
                 onKeyDown={(event) => {
                   if (event.key === "Enter" && !event.shiftKey) {

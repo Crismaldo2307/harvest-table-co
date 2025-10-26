@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#f6f3ea" />
+  <rect x="0" y="0" width="1280" height="64" fill="#3b82a0" opacity="0.85" />
+  <text x="40" y="42" font-family="'Inter', sans-serif" font-size="28" fill="#ffffff">BigQuery · Consulta 3</text>
+  <rect x="80" y="120" width="1120" height="280" rx="24" fill="#ffffff" stroke="#d9c89a" stroke-width="3" />
+  <text x="110" y="168" font-family="'Fira Code', monospace" font-size="24" fill="#334155">SELECT</text>
+  <text x="110" y="206" font-family="'Fira Code', monospace" font-size="24" fill="#334155">  d.district, b.neighborhood, b.year,</text>
+  <text x="110" y="244" font-family="'Fira Code', monospace" font-size="24" fill="#334155">  SUM(t.total_contracts) AS total_contracts</text>
+  <text x="110" y="282" font-family="'Fira Code', monospace" font-size="24" fill="#334155">FROM rental_market_analytics b</text>
+  <text x="110" y="320" font-family="'Fira Code', monospace" font-size="24" fill="#334155">JOIN district_lookup d USING (neighborhood)</text>
+  <rect x="80" y="424" width="1120" height="216" rx="24" fill="#ffffff" stroke="#d9c89a" stroke-width="3" />
+  <text x="110" y="472" font-family="'Inter', sans-serif" font-size="28" fill="#1f2937">Segmentación por distrito</text>
+  <text x="110" y="516" font-family="'Inter', sans-serif" font-size="22" fill="#475569">Nou Barris · Verdum · 2014 · 2.794 contratos</text>
+  <text x="110" y="552" font-family="'Inter', sans-serif" font-size="22" fill="#475569">Sarrià-Sant Gervasi · Tres Torres · 2019 · 3.451 contratos</text>
+</svg>

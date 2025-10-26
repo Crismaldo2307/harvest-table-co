@@ -5,21 +5,20 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 const navLinks = [
-  { label: "Home", href: "#top" },
-  { label: "Services", href: "#services" },
-  { label: "Quote", href: "#quote" },
-  { label: "Contact", href: "#contact" }
+  { label: "Cristian & Alonso Data", href: "/empresa" },
+  { label: "Búsqueda", href: "/busqueda" },
+  { label: "Política de datos", href: "/politica-datos" }
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-brand-gold/30" id="top">
+    <header className="sticky top-0 z-50 border-b border-brand-gold/30 bg-white/90 backdrop-blur" id="top">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="#top" className="flex items-center gap-2 text-lg font-semibold text-brand-green">
+        <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-brand-green">
           <motion.span initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-            Harvest Table Co.
+            Barcelona Rent Pulse
           </motion.span>
         </Link>
         <div className="hidden items-center gap-8 text-sm font-medium md:flex">
@@ -35,16 +34,16 @@ export function Navbar() {
             </motion.a>
           ))}
           <Link
-            href="#quote"
+            href="/#contacto"
             className="rounded-full bg-brand-green px-4 py-2 text-white shadow hover:bg-brand-gold"
           >
-            Request a Quote
+            Contacto
           </Link>
         </div>
         <button
-          className="md:hidden inline-flex items-center justify-center rounded-full border border-brand-green p-2 text-brand-green"
+          className="inline-flex items-center justify-center rounded-full border border-brand-green p-2 text-brand-green md:hidden"
           onClick={() => setIsOpen((prev) => !prev)}
-          aria-label="Toggle menu"
+          aria-label="Abrir menú"
         >
           <span className="sr-only">Toggle navigation</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-6 w-6">
@@ -56,7 +55,7 @@ export function Navbar() {
         <motion.div
           initial={{ height: 0 }}
           animate={{ height: "auto" }}
-          className="md:hidden border-t border-brand-gold/30 bg-white"
+          className="border-t border-brand-gold/30 bg-white md:hidden"
         >
           <div className="space-y-4 px-6 py-4">
             {navLinks.map((link) => (
@@ -70,11 +69,11 @@ export function Navbar() {
               </a>
             ))}
             <a
-              href="#quote"
+              href="/#contacto"
               className="block rounded-full bg-brand-green px-4 py-2 text-center text-white"
               onClick={() => setIsOpen(false)}
             >
-              Request a Quote
+              Contacto
             </a>
           </div>
         </motion.div>

@@ -3,27 +3,42 @@ import { Hero } from "@/components/Hero";
 import { Services } from "@/components/Services";
 import { QuoteForm } from "@/components/QuoteForm";
 import { ChatAgent } from "@/components/ChatAgent";
+import { InteractiveAnalytics } from "@/components/InteractiveAnalytics";
+import { Footer } from "@/components/Footer";
 
 export default function HomePage() {
   return (
     <main className="relative min-h-screen bg-white">
       <Navbar />
       <Hero />
-      <Services />
-      <QuoteForm />
-      <footer className="border-t border-brand-gold/20 bg-brand-green/10 py-10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 text-sm text-brand-dark/70 md:flex-row md:items-center md:justify-between">
-          <p>&copy; {new Date().getFullYear()} Harvest Table Co. All rights reserved.</p>
-          <div className="flex gap-4">
-            <a href="#quote" className="hover:text-brand-gold">
-              Request a Quote
-            </a>
-            <a href="mailto:hello@harvesttableco.com" className="hover:text-brand-gold">
-              hello@harvesttableco.com
+      <section className="bg-brand-green/10 py-16">
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-3">
+          <div className="md:col-span-2 space-y-4">
+            <h2 className="text-2xl font-semibold text-brand-dark">Barcelona Rent Pulse</h2>
+            <p className="text-brand-dark/75">
+              Proyecto de inteligencia urbana que combina datos públicos y fuentes alternativas para explicar la tensión del mercado de alquiler en Barcelona. Nuestro enfoque cruza precios, flujos de turismo, dinamismo comercial y empleo para anticipar zonas de riesgo y detectar oportunidades.
+            </p>
+            <p className="text-brand-dark/70">
+              Cristian &amp; Alonso Data transforma millones de registros en decisiones accionables para empresas, administraciones y colectivos ciudadanos que buscan respuestas ante la crisis de vivienda.
+            </p>
+          </div>
+          <div className="space-y-3 rounded-3xl border border-brand-gold/40 bg-white/80 p-6 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-green/80">Highlights 2024</p>
+            <ul className="space-y-2 text-sm text-brand-dark/80">
+              <li>• Renta media mensual: 1.139 € (+64 % desde 2015).</li>
+              <li>• Pernoctaciones turísticas: 22,7 millones.</li>
+              <li>• 41 % de pernoctaciones en apartamentos turísticos.</li>
+            </ul>
+            <a href="/busqueda" className="inline-flex items-center text-sm font-semibold text-brand-green hover:text-brand-gold">
+              Explorar dashboard en Looker Studio
             </a>
           </div>
         </div>
-      </footer>
+      </section>
+      <InteractiveAnalytics />
+      <Services />
+      <QuoteForm />
+      <Footer />
       <ChatAgent />
     </main>
   );
