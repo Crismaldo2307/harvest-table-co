@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#f5f0e5" />
+  <rect x="0" y="0" width="1280" height="64" fill="#334155" opacity="0.88" />
+  <text x="40" y="42" font-family="'Inter', sans-serif" font-size="28" fill="#ffffff">Looker Studio · Fuentes de datos</text>
+  <rect x="200" y="140" width="880" height="440" rx="32" fill="#ffffff" stroke="#d9c89a" stroke-width="3" />
+  <text x="240" y="200" font-family="'Inter', sans-serif" font-size="24" fill="#1f2937">Conexiones BigQuery activas</text>
+  <rect x="240" y="240" width="800" height="72" rx="16" fill="#eef2ff" />
+  <text x="260" y="285" font-family="'Inter', sans-serif" font-size="20" fill="#475569">rental_market_analytics · 8 gráficos</text>
+  <rect x="240" y="332" width="800" height="72" rx="16" fill="#f0fdf4" />
+  <text x="260" y="377" font-family="'Inter', sans-serif" font-size="20" fill="#475569">city_mix · 4 gráficos</text>
+  <rect x="240" y="424" width="800" height="72" rx="16" fill="#fef3c7" />
+  <text x="260" y="469" font-family="'Inter', sans-serif" font-size="20" fill="#475569">district_neighborhood_view · 6 gráficos</text>
+</svg>

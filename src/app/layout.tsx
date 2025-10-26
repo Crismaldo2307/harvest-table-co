@@ -5,17 +5,17 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Harvest Table Co. | Premium Catering Powered by Intelligent Tech",
+  title: "Barcelona Rent Pulse | Cristian & Alonso Data",
   description:
-    "Harvest Table Co. delivers premium catering for corporate and private events, blending culinary excellence with intelligent technology.",
-  metadataBase: new URL("https://www.harvesttableco.com"),
+    "Observatorio interactivo sobre la evolución del alquiler en Barcelona y su relación con turismo, comercio y empleo.",
+  metadataBase: new URL("https://barcelona-rent-pulse.example"),
   openGraph: {
-    title: "Harvest Table Co. | Premium Catering Powered by Intelligent Tech",
+    title: "Barcelona Rent Pulse | Cristian & Alonso Data",
     description:
-      "Premium catering services for corporate and private events, enhanced by intelligent solutions.",
-    url: "https://www.harvesttableco.com",
-    siteName: "Harvest Table Co.",
-    locale: "en_US",
+      "Analítica urbana que cruza datos de alquiler, turismo y comercio para comprender la presión inmobiliaria en Barcelona.",
+    url: "https://barcelona-rent-pulse.example",
+    siteName: "Barcelona Rent Pulse",
+    locale: "es_ES",
     type: "website"
   }
 };

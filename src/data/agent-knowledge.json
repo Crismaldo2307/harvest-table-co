@@ -1,0 +1,25 @@
+{
+  "faq": [
+    {
+      "question": "crecimiento de la renta",
+      "answer": "Entre 2015 y 2024 la renta media mensual pasó de 696 € a 1.139 €, un aumento acumulado del 64 %."
+    },
+    {
+      "question": "impacto del turismo",
+      "answer": "La correlación entre pernoctaciones y renta media es 0,87. Los años con más visitantes (2018-2019 y 2023-2024) coinciden con máximos de precio."
+    },
+    {
+      "question": "distritos más tensionados",
+      "answer": "Ciutat Vella y l'Eixample concentran 13.865 viviendas turísticas registradas y rentas medias superiores a 1.100 €."
+    },
+    {
+      "question": "fuentes",
+      "answer": "Trabajamos con la Agència de l'Habitatge de Catalunya, el Departament d'Estadística del Ajuntament y registros de Turismo de Barcelona integrados en BigQuery."
+    }
+  ],
+  "highlights": [
+    "El índice de comercio minorista ha crecido 18 puntos desde 2015, impulsando la demanda de locales y vivienda en ejes principales.",
+    "Nou Barris y Horta-Guinardó mantienen rentas por debajo de 900 €, con menor densidad comercial y turismo.",
+    "El mix turístico muestra que el 41 % de las pernoctaciones proviene de apartamentos, presionando la oferta residencial."
+  ]
+}
