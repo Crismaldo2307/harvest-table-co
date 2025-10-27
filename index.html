@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cristian y Alonso Data – Análisis del incremento del precio de la renta en Barcelona</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="navbar" aria-label="Principal">
+    <div class="navbar__brand">Cristian y Alonso Data</div>
+    <button class="navbar__toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="primary-navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav id="primary-navigation" class="navbar__links" aria-label="Navegación principal">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="busqueda.html">Búsqueda</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="politica.html">Política de Datos</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="visually-hidden">Análisis del incremento del precio de la renta en Barcelona</h1>
+      <div class="hero__video" role="presentation">
+        <div style="position: relative; overflow: hidden; aspect-ratio: 1920/1080">
+          <iframe src="https://share.synthesia.io/embeds/videos/26b3ea86-dac0-4435-91f5-f69ac75740c1"
+            loading="lazy"
+            title="Synthesia video player - Desentrañando el Alquiler en Barcelona: Un Análisis de Datos Revelador"
+            allowfullscreen
+            allow="encrypted-media; fullscreen; microphone;"
+            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="content" aria-labelledby="descripcion-title">
+      <div class="content__text">
+        <h2 id="descripcion-title">Comprendiendo el aumento de la renta en Barcelona</h2>
+        <p>Barcelona experimenta una tendencia ascendente en los precios de la renta residencial, impulsada por la creciente demanda de vivienda en zonas céntricas y el dinamismo del mercado inmobiliario. Nuestro análisis recopila datos históricos y actuales para revelar los patrones que explican estos aumentos y sus efectos sobre los residentes.</p>
+        <p>La interacción entre turismo, comercio y vivienda se vuelve evidente cuando observamos la presión que generan las estancias temporales y la actividad comercial en los barrios más visitados. A través de visualizaciones interactivas ofrecemos una visión integral para responsables públicos, empresas inmobiliarias y ciudadanía informada.</p>
+        <p>Con metodologías basadas en BigQuery y tableros dinámicos en Looker Studio, Cristian y Alonso Data explora cómo estos factores se correlacionan para anticipar escenarios futuros y diseñar estrategias de intervención social y económica.</p>
+      </div>
+    </section>
+
+    <section class="map-section" aria-labelledby="map-title">
+      <div class="section-header">
+        <h2 id="map-title">Mapa interactivo de rentas promedio</h2>
+        <p>Explora los distritos de Barcelona y observa la renta mensual estimada en cada uno de ellos.</p>
+      </div>
+      <div id="map" class="map" role="application" aria-label="Mapa de rentas promedio en Barcelona"></div>
+    </section>
+
+    <section class="charts" aria-labelledby="charts-title">
+      <div class="section-header">
+        <h2 id="charts-title">Evolución y correlación de indicadores</h2>
+        <p>Visualiza la evolución del precio de la renta, el flujo turístico y la actividad comercial para identificar patrones compartidos.</p>
+      </div>
+      <div class="chart-controls" role="group" aria-label="Alternar datasets">
+        <label><input type="checkbox" id="toggleRent" checked> Renta promedio</label>
+        <label><input type="checkbox" id="toggleTourism" checked> Turismo</label>
+        <label><input type="checkbox" id="toggleCommerce" checked> Comercio</label>
+      </div>
+      <div class="charts__grid">
+        <div class="chart-card" role="img" aria-label="Gráfico de barras de la renta promedio por año">
+          <canvas id="rentBarChart"></canvas>
+        </div>
+        <div class="chart-card" role="img" aria-label="Gráfico de líneas sobre renta, turismo y comercio">
+          <canvas id="correlationLineChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto" aria-labelledby="contact-title">
+      <div class="section-header">
+        <h2 id="contact-title">Contacto</h2>
+        <p>Comparte tus preguntas o solicita una demostración personalizada de nuestro análisis.</p>
+      </div>
+      <form class="contact__form" id="contact-form" novalidate>
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="name" required aria-required="true">
+          <span class="form-error" id="error-name" role="alert"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required aria-required="true">
+          <span class="form-error" id="error-email" role="alert"></span>
+        </div>
+        <div class="form-group">
+          <label for="company">Empresa</label>
+          <input type="text" id="company" name="company">
+        </div>
+        <div class="form-group">
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" rows="4" required aria-required="true"></textarea>
+          <span class="form-error" id="error-message" role="alert"></span>
+        </div>
+        <button type="submit" class="btn">Enviar</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Cristian y Alonso Data. Propietarios: Cristhyan Maldonado y Alonso Durand.</p>
+  </footer>
+
+  <div class="chatbot" aria-live="polite">
+    <button class="chatbot__toggle" aria-label="Abrir asistente virtual">
+      <span>💬</span>
+    </button>
+    <div class="chatbot__window" role="dialog" aria-modal="false" aria-labelledby="chatbot-title" hidden>
+      <div class="chatbot__header">
+        <h2 id="chatbot-title">Asistente IA</h2>
+        <button class="chatbot__close" aria-label="Cerrar asistente">×</button>
+      </div>
+      <div class="chatbot__body" id="chatbot-messages" tabindex="0"></div>
+      <form class="chatbot__form" id="chatbot-form">
+        <label class="visually-hidden" for="chatbot-input">Escribe tu mensaje</label>
+        <input type="text" id="chatbot-input" name="message" placeholder="Escribe tu mensaje..." autocomplete="off">
+        <button type="submit" class="btn btn--secondary">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/email.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>
